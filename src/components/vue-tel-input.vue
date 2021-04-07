@@ -227,9 +227,9 @@ export default {
       let valid = result.isValid?.();
       let formatted = this.phone;
 
-      if (valid) {
-        formatted = result.format?.(this.parsedMode.toUpperCase());
-      }
+//      if (valid) {
+//        formatted = result.format?.(this.parsedMode.toUpperCase());
+//      }
 
       if (result.country && (this.ignoredCountries.length || this.onlyCountries.length)) {
         if (!this.findCountry(result.country)) {
@@ -254,6 +254,7 @@ export default {
         this.activeCountryCode = oldValue.iso2;
         return;
       }
+
       if (value?.iso2) {
         this.$emit('country-changed', value);
         // this.resetPlaceholder();
@@ -265,7 +266,7 @@ export default {
     'phoneObject.valid': function () {
       this.$emit('validate', this.phoneObject);
     },
-    'phoneObject.formatted': function (value) {
+    /*'phoneObject.formatted': function (value) {
       if (!this.autoFormat || this.customValidate) {
         return;
       }
@@ -277,20 +278,20 @@ export default {
           this.phone = value;
         }
       });
-    },
+    },*/
     // finishMounted() {
     //   this.resetPlaceholder();
     // },
     'inputOptions.placeholder': function () {
       this.resetPlaceholder();
     },
-    value(value, oldValue) {
+    /*value(value, oldValue) {
       if (!this.testCharacters()) {
         this.$nextTick(() => { this.phone = oldValue; this.onInput(); });
       } else {
         this.phone = value;
       }
-    },
+    },*/
     open(isDropdownOpened) {
       // Emit open and close events
       if (isDropdownOpened) {
@@ -427,6 +428,8 @@ export default {
       if (!parsedCountry) {
         return;
       }
+
+      /*
       if (this.phone?.[0] === '+'
         && parsedCountry.iso2
         && this.phoneObject.nationalNumber) {
@@ -444,7 +447,7 @@ export default {
         // Reset phone if the showDialCode is set
         this.phone = `+${parsedCountry.dialCode}`;
         return;
-      }
+      }*/
 
       // update value, even if international mode is NOT used
       this.activeCountryCode = parsedCountry.iso2;
