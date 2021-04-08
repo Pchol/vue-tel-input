@@ -422,6 +422,8 @@ export default {
           im.mask(this.$refs.input);
       } else {
           Inputmask.remove(this.$refs.input);
+          const results = this.phone.match(/[+0-9]*/g);
+          this.phone = results.join('');
       }
 
       /*
