@@ -63,6 +63,7 @@
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import utils, { getCountry, setCaretPosition } from '../utils';
 import clickOutside from '../directives/click-outside';
+import Inputmask from "inputmask";
 
 function getDefault(key) {
   const value = utils.options[key];
@@ -71,19 +72,6 @@ function getDefault(key) {
   }
   return value;
 }
-
-// let examples = null;
-// const getExamples = () => new Promise(
-//   (resolve) => (
-//     examples
-//       ? resolve(examples)
-//       : import('libphonenumber-js/examples.mobile.json')
-//         .then((results) => {
-//           examples = results;
-//           resolve(results);
-//         })
-//   ),
-// );
 
 export default {
   name: 'VueTelInput',
@@ -279,9 +267,9 @@ export default {
         }
       });
     },*/
-    // finishMounted() {
-    //   this.resetPlaceholder();
-    // },
+//     finishMounted() {
+//       this.resetPlaceholder();
+//     },
     'inputOptions.placeholder': function () {
       this.resetPlaceholder();
     },
@@ -311,11 +299,11 @@ export default {
 
     this.initializeCountry()
       .then(() => {
-        if (!this.phone
+        /*if (!this.phone
           && this.inputOptions?.showDialCode
           && this.activeCountryCode) {
           this.phone = `+${this.activeCountryCode}`;
-        }
+        }*/
         this.$emit('validate', this.phoneObject);
       })
       .catch(console.error)
@@ -427,6 +415,13 @@ export default {
 
       if (!parsedCountry) {
         return;
+      }
+
+      if (parsedCountry.iso2 === 'RU') {
+          const im = new Inputmask('(999)999-99-99');
+          im.mask(this.$refs.input);
+      } else {
+          Inputmask.remove(this.$refs.input);
       }
 
       /*
