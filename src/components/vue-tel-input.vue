@@ -418,7 +418,7 @@ export default {
       }
 
       if (parsedCountry.iso2 === 'RU') {
-          const im = new Inputmask('(999)999-99-99');
+          const im = new Inputmask('(999) 999-99-99');
           im.mask(this.$refs.input);
       } else {
           Inputmask.remove(this.$refs.input);
